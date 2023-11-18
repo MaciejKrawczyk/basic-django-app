@@ -4,6 +4,12 @@ from django.db import models
 class Currency(models.Model):
     code = models.CharField(max_length=3, primary_key=True)
 
+    class Meta:
+        app_label = 'currency'
+        ordering = ['code']
+        verbose_name = 'Currency'
+        verbose_name_plural = 'Currencies'
+
 
 # I created the second table for currency exchanges for better scalability and performance.
 class ExchangeRate(models.Model):
@@ -12,6 +18,11 @@ class ExchangeRate(models.Model):
     exchange_rate = models.DecimalField(max_digits=15, decimal_places=2, default=00.00)
     created_at = models.DateTimeField(auto_now_add=True)
     currency = models.CharField(max_length=3, default='USD')
+
+    class Meta:
+        app_label = 'currency'
+        verbose_name = 'Exchange Rate'
+        verbose_name_plural = 'Exchange Rates'
 
     @property
     def currency_pair(self):

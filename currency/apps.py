@@ -20,7 +20,7 @@ class CurrencyConfig(AppConfig):
             data = yf.Ticker(f"{pair}=X").history_metadata
 
             exchange_rate_currency = data['currency']
-            exchange_rate = data['regularMarketPrice']
+            exchange_rate = float(data['regularMarketPrice'])
 
             # split the currencies
             first_currency, second_currency = split_currency_pair(pair)
