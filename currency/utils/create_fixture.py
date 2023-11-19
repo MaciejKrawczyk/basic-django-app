@@ -32,7 +32,10 @@ def split_currency_pair(currency_pair):
 
 
 def fetch_data_from_yfinance(pair):
-    return yf.Ticker(f"{pair}=X").history_metadata
+    data = yf.Ticker(f"{pair}=X").history_metadata
+    # data2 = yf.Ticker(f"{pair}=X").history(period="1d")
+    # print(data2)
+    return data
 
 
 def create_fixture(required_currency_pairs=REQUIRED_CURRENCY_PAIRS):

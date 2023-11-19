@@ -1,0 +1,30 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+
+    <button onclick="javascript:history.back()">Go Back</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data_from_yf.itertuples %}
+                <tr>
+                    <td>{{ row.Index }}</td>
+                    <td>{{ row.Open }}</td>
+                    <td>{{ row.High }}</td>
+                    <td>{{ row.Low }}</td>
+                    <td>{{ row.Close }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -17,7 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from currency.admin import historical_rates
+
 urlpatterns = [
+
+    path('admin/new-url/', historical_rates, name='historical_rates'),
+
     path("admin/", admin.site.urls),
     path("currency/", include("currency.urls")),
 ]
