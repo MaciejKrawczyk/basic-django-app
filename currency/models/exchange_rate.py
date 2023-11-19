@@ -1,14 +1,6 @@
 from django.db import models
 
-
-class Currency(models.Model):
-    code = models.CharField(max_length=3, primary_key=True)
-
-    class Meta:
-        app_label = 'currency'
-        ordering = ['code']
-        verbose_name = 'Currency'
-        verbose_name_plural = 'Currencies'
+from currency.models.currency import Currency
 
 
 # I created the second table for currency exchanges for better scalability and performance.

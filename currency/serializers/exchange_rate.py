@@ -1,13 +1,6 @@
 from rest_framework import serializers
-from .models import Currency, ExchangeRate
 
-
-class CurrencySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Currency
-        fields = [
-            'code',
-        ]
+from currency.models import ExchangeRate
 
 
 class ExchangeRateSerializer(serializers.ModelSerializer):
