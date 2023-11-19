@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, mixins
+from django.shortcuts import get_object_or_404
+from rest_framework import generics
 
 from currency.models import Currency, ExchangeRate
 from currency.serializers import CurrencySerializer, ExchangeRateSerializer
