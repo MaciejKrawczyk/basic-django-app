@@ -6,7 +6,7 @@
 
     <a
             style="padding: 10px 20px;color: white;background-color: #007BFF;font-size: 1.5rem;border: none;border-radius: 5px;cursor: pointer;margin: 20px;"
-            href="/currency/historical-rates/{{ original.id }}/"
+            href="{% url 'historical_rates' original.id %}"
     >
         See historical rates
     </a>
