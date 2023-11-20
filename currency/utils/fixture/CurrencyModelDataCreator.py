@@ -1,3 +1,13 @@
+from currency.types import ModelDataCreator
+
+
+class CurrencyModelDataCreator(ModelDataCreator):
+    def create_model_data(self, currencies_list, first_currency, second_currency):
+        return create_currency_model_data_list(currencies_list, first_currency, second_currency)
+
+
+# ---------------------------------------
+
 def create_currency_model_data(code):
     return {
         "model": "currency.currency",

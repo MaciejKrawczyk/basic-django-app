@@ -1,3 +1,13 @@
+from currency.types import ModelDataCreator
+
+
+class ExchangeRateHistoryModelDataCreator(ModelDataCreator):
+    def create_model_data(self, history_list, history_pk, pk, history_data):
+        return create_exchange_rate_history_model_data_list(history_list, history_pk, pk, history_data)
+
+
+# --------------------------------------
+
 def create_exchange_rate_history_model_data(pk, currency_pair, index, open, high, low, close):
     return {
         "model": "currency.exchangeratehistory",

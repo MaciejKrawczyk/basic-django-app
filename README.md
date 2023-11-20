@@ -66,4 +66,4 @@ python manage.py runserver
 2. Regarding the choice of libraries, I utilized 'yfinance' as recommended in the task. Additionally, I used the Django REST framework, which simplifies some aspects of the work and is widely recommended.
 3. To display the 'View Historical Data' button, navigate to the exchange rates section in the admin panel and then click on the ExchangeRate object.
 4. The historical data is fetched with a default period of one month, and the currencies fetched are EURUSD, USDJPY, and PLNUSD. These values can be altered in the currency -> utils -> create_fixture.py file.
-5. In the initial version, I fetched historical data from an API every time the 'View Historical Data' button was clicked in the admin panel. To enhance performance and reduce the number of requests, I have now created a separate table in the local database for storing this data.
+5. To enhance performance and reduce the number of requests, I have created a separate table in the local database for storing this data.
