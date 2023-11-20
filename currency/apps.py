@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+from currency.config import REQUIRED_CURRENCY_PAIRS
 from currency.utils.FixtureCreator import FixtureCreator
 from currency.utils.fixture.CurrencyModelDataCreator import CurrencyModelDataCreator
 from currency.utils.fixture.ExchangeRateHistoryModelDataCreator import ExchangeRateHistoryModelDataCreator
@@ -12,7 +13,6 @@ class CurrencyConfig(AppConfig):
     name = 'currency'
 
     def ready(self):
-
         currency_creator = CurrencyModelDataCreator()
         exchange_rate_creator = ExchangeRateModelDataCreator()
         history_creator = ExchangeRateHistoryModelDataCreator()
@@ -23,6 +23,6 @@ class CurrencyConfig(AppConfig):
             history_creator=history_creator
         )
 
-        fixture_data = fixture_creator.create_fixture()
+        fixture_data = fixture_creator.create_fixture(REQUIRED_CURRENCY_PAIRS)
 
         create_json_file(fixture_data, '../fixtures/fixture.json')

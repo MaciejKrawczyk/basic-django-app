@@ -6,6 +6,8 @@ from currency.utils.fixture.CurrencyModelDataCreator import CurrencyModelDataCre
 from currency.utils.fixture.ExchangeRateHistoryModelDataCreator import ExchangeRateHistoryModelDataCreator
 from currency.utils.fixture.ExchangeRateModelDataCreator import ExchangeRateModelDataCreator
 
+REQUIRED_CURRENCY_PAIRS = ["EURUSD", "USDJPY", "PLNUSD"]
+
 
 class CreateFixtureTest(TestCase):
     def setUp(self):
@@ -20,7 +22,7 @@ class CreateFixtureTest(TestCase):
         )
 
     def test_create_fixture(self):
-        fixture_data = self.fixture_creator.create_fixture()
+        fixture_data = self.fixture_creator.create_fixture(REQUIRED_CURRENCY_PAIRS)
 
         self.assertIsInstance(fixture_data, list)
         self.assertTrue(fixture_data)
@@ -41,7 +43,7 @@ class CreateFixtureTest(TestCase):
 
 class LoadFixtureTest(TestCase):
     def setUp(self):
-        call_command('loaddata', 'fixture.json')
+        call_command('loaddata', 'fixture')
 
     def test_fixture_loaded(self):
         self.assertTrue(Currency.objects.exists())

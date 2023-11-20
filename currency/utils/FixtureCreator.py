@@ -1,16 +1,5 @@
 from currency.utils.utils import split_currency_pair
-import yfinance as yf
-
-REQUIRED_CURRENCY_PAIRS = ["EURUSD", "USDJPY", "PLNUSD"]
-CURRENCY_RATE_HISTORY_PERIOD = "1mo"
-
-
-def fetch_history_metadata_from_yf(pair: str):
-    return yf.Ticker(f"{pair}=X").history_metadata
-
-
-def fetch_history_from_yf(pair: str):
-    return yf.Ticker(f"{pair}=X").history(period=CURRENCY_RATE_HISTORY_PERIOD)
+from currency.utils.yf import fetch_history_metadata_from_yf, fetch_history_from_yf
 
 
 class FixtureCreator:
@@ -19,7 +8,7 @@ class FixtureCreator:
         self.exchange_rate_creator = exchange_rate_creator
         self.history_creator = history_creator
 
-    def create_fixture(self, required_currency_pairs=REQUIRED_CURRENCY_PAIRS):
+    def create_fixture(self, required_currency_pairs):
         currencies_model_data_list = []
         exchange_rates_model_data_list = []
         exchange_rates_history_model_data_list = []
@@ -38,7 +27,8 @@ class FixtureCreator:
 
             if self.exchange_rate_creator:
                 exchange_rates_model_data_list = self.exchange_rate_creator.create_model_data(
-                    exchange_rates_model_data_list, first_currency, second_currency, exchange_rate, exchange_rate_currency, pk)
+                    exchange_rates_model_data_list, first_currency, second_currency, exchange_rate,
+                    exchange_rate_currency, pk)
 
             if self.history_creator:
                 history_data = fetch_history_from_yf(pair)
@@ -56,5 +46,3 @@ class FixtureCreator:
             fixture_data.extend(exchange_rates_history_model_data_list)
 
         return fixture_data
-
-

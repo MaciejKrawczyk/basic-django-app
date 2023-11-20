@@ -1,21 +1,8 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from currency.models import Currency, ExchangeRate
+from currency.models import Currency
 from currency.serializers import CurrencySerializer, ExchangeRateSerializer
-
-
-def get_currency(currency_code):
-    """
-    Retrieve a currency object based on its code
-    """
-    return get_object_or_404(Currency, code=currency_code)
-
-
-def get_exchange_rate(from_currency, to_currency):
-    """
-    Retrieve an exchange rate object based on from and to currencies
-    """
-    return get_object_or_404(ExchangeRate, from_currency=from_currency, to_currency=to_currency)
+from currency.services.currency import get_currency
+from currency.services.exchange_rate import get_exchange_rate
 
 
 class CurrencyListAPIView(generics.ListAPIView):

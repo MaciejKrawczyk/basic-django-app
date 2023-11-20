@@ -9,3 +9,6 @@ class Currency(models.Model):
         ordering = ['code']
         verbose_name = 'Currency'
         verbose_name_plural = 'Currencies'
+
+    def __str__(self):
+        return self.code

@@ -19,3 +19,6 @@ class ExchangeRate(models.Model):
     @property
     def currency_pair(self):
         return f'{self.from_currency.code}{self.to_currency.code}'
+
+    def __str__(self):
+        return f'{self.from_currency.code} to {self.to_currency.code}'
