@@ -3,7 +3,7 @@
 {% block content %}
 
     <button onclick="javascript:history.back()">Go Back</button>
-
+    <h1>{{ currency_pair }}</h1>
     <table>
         <thead>
             <tr>
@@ -15,13 +15,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in data_from_yf.itertuples %}
+            {% for row in data_from_yf %}
                 <tr>
-                    <td>{{ row.Index }}</td>
-                    <td>{{ row.Open }}</td>
-                    <td>{{ row.High }}</td>
-                    <td>{{ row.Low }}</td>
-                    <td>{{ row.Close }}</td>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.open }}</td>
+                    <td>{{ row.high }}</td>
+                    <td>{{ row.low }}</td>
+                    <td>{{ row.close }}</td>
                 </tr>
             {% endfor %}
         </tbody>

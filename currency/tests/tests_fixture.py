@@ -1,7 +1,7 @@
 from django.test import TestCase
 from currency.utils.create_fixture import create_fixture
 from django.core.management import call_command
-from currency.models import Currency, ExchangeRate
+from currency.models import Currency, ExchangeRate, ExchangeRateHistory
 
 
 class CreateFixtureTest(TestCase):
@@ -39,3 +39,5 @@ class LoadFixtureTest(TestCase):
         # Check if the data from the fixture is present in the database
         self.assertTrue(Currency.objects.exists())
         self.assertTrue(ExchangeRate.objects.exists())
+        self.assertTrue(ExchangeRateHistory.objects.exists())
+

@@ -4,7 +4,7 @@ from currency.models import ExchangeRate
 
 
 class ExchangeRateSerializer(serializers.ModelSerializer):
-    currency_pair = serializers.SerializerMethodField(read_only=True)
+    currency_pair = serializers.SerializerMethodField()
 
     class Meta:
         model = ExchangeRate
