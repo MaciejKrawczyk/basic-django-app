@@ -11,10 +11,10 @@ admin.site.register(ExchangeRate)
 
 def historical_rates(request, id):
 
-    data_from_database = ExchangeRate.objects.filter(id=id)
+    data_from_database = ExchangeRate.objects.get(id=id)
 
-    currency_from = data_from_database[0].from_currency.code
-    currency_to = data_from_database[0].to_currency.code
+    currency_from = data_from_database.from_currency.code
+    currency_to = data_from_database.to_currency.code
     currency_pair = currency_from + currency_to
 
     data_from_yf = ExchangeRateHistory.objects.filter(currency_pair_history=id)
