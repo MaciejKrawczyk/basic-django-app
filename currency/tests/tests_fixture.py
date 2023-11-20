@@ -1,19 +1,31 @@
 from django.test import TestCase
-from currency.utils.FixtureCreator import create_fixture
+from currency.utils.FixtureCreator import FixtureCreator
 from django.core.management import call_command
 from currency.models import Currency, ExchangeRate, ExchangeRateHistory
+from currency.utils.fixture.CurrencyModelDataCreator import CurrencyModelDataCreator
+from currency.utils.fixture.ExchangeRateHistoryModelDataCreator import ExchangeRateHistoryModelDataCreator
+from currency.utils.fixture.ExchangeRateModelDataCreator import ExchangeRateModelDataCreator
 
 
 class CreateFixtureTest(TestCase):
+    def setUp(self):
+        self.currency_creator = CurrencyModelDataCreator()
+        self.exchange_rate_creator = ExchangeRateModelDataCreator()
+        self.history_creator = ExchangeRateHistoryModelDataCreator()
+
+        self.fixture_creator = FixtureCreator(
+            currency_creator=self.currency_creator,
+            exchange_rate_creator=self.exchange_rate_creator,
+            history_creator=self.history_creator
+        )
+
     def test_create_fixture(self):
-        fixture_data = create_fixture()
+        fixture_data = self.fixture_creator.create_fixture()
 
         self.assertIsInstance(fixture_data, list)
-
         self.assertTrue(fixture_data)
 
         for data in fixture_data:
-
             self.assertIn('model', data)
             self.assertIn('fields', data)
 
@@ -35,4 +47,3 @@ class LoadFixtureTest(TestCase):
         self.assertTrue(Currency.objects.exists())
         self.assertTrue(ExchangeRate.objects.exists())
         self.assertTrue(ExchangeRateHistory.objects.exists())
-
