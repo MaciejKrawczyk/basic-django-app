@@ -1,46 +1,9 @@
-from django.utils import timezone
 import yfinance as yf
+from currency.utils.fixture.models_data_schemas import create_currency_model_data, create_exchange_rate_model_data, \
+    create_exchange_rate_history_model_data
 
 REQUIRED_CURRENCY_PAIRS = ["EURUSD", "USDJPY", "PLNUSD"]
 CURRENCY_RATE_HISTORY_PERIOD = "1mo"
-
-
-def create_currency_model_data(code):
-    return {
-        "model": "currency.currency",
-        "fields": {
-            "code": code
-        }
-    }
-
-
-def create_exchange_rate_history_model_data(pk, currency_pair, index, open, high, low, close):
-    return {
-        "model": "currency.exchangeratehistory",
-        "pk": pk,
-        "fields": {
-            "currency_pair_history": currency_pair,
-            "date": index,
-            "open": open,
-            "high": high,
-            "low": low,
-            "close": close
-        }
-    }
-
-
-def create_exchange_rate_model_data(from_currency, to_currency, exchange_rate, currency, pk):
-    return {
-        "model": "currency.exchangerate",
-        "pk": pk,
-        "fields": {
-            "from_currency": from_currency,
-            "to_currency": to_currency,
-            "exchange_rate": exchange_rate,
-            "currency": currency,
-            "created_at": timezone.now().isoformat()
-        }
-    }
 
 
 def split_currency_pair(currency_pair):
