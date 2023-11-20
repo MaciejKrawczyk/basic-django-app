@@ -1,13 +1,11 @@
+from currency.utils.fixture.currency import create_currency_model_data_list
+from currency.utils.fixture.exchange_rate import create_exchange_rate_model_data_list
+from currency.utils.fixture.exchange_rate_history import create_exchange_rate_history_model_data_list
+from currency.utils.utils import split_currency_pair
 import yfinance as yf
-from currency.utils.fixture.models_data_schemas import create_currency_model_data, create_exchange_rate_model_data, \
-    create_exchange_rate_history_model_data
 
 REQUIRED_CURRENCY_PAIRS = ["EURUSD", "USDJPY", "PLNUSD"]
 CURRENCY_RATE_HISTORY_PERIOD = "1mo"
-
-
-def split_currency_pair(currency_pair):
-    return currency_pair[:3], currency_pair[3:]
 
 
 def fetch_history_metadata_from_yf(pair):
@@ -33,31 +31,16 @@ def create_fixture(required_currency_pairs=REQUIRED_CURRENCY_PAIRS):
 
         first_currency, second_currency = split_currency_pair(pair)
 
-        if not any(d['fields']['code'] == first_currency for d in currencies_model_data_list):
-            currencies_model_data_list.append(create_currency_model_data(first_currency))
-        if not any(d['fields']['code'] == second_currency for d in currencies_model_data_list):
-            currencies_model_data_list.append(create_currency_model_data(second_currency))
+        currencies_model_data_list = create_currency_model_data_list(currencies_model_data_list, first_currency,
+                                                                     second_currency)
 
-        exchange_rates_model_data_list.append(create_exchange_rate_model_data(
-            first_currency,
-            second_currency,
-            exchange_rate,
-            exchange_rate_currency,
-            pk
-        ))
+        exchange_rates_model_data_list = create_exchange_rate_model_data_list(exchange_rates_model_data_list,
+                                                                              first_currency, second_currency,
+                                                                              exchange_rate, exchange_rate_currency, pk)
 
         history_data = fetch_history_from_yf(pair)
-        for index, row in history_data.iterrows():
-            exchange_rates_history_model_data_list.append(create_exchange_rate_history_model_data(
-                exchange_rate_history_pk,
-                pk,
-                index.strftime('%Y-%m-%d'),
-                row['Open'],
-                row['High'],
-                row['Low'],
-                row['Close']
-            ))
-            exchange_rate_history_pk += 1
+        exchange_rates_history_model_data_list, exchange_rate_history_pk = create_exchange_rate_history_model_data_list(
+            exchange_rates_history_model_data_list, exchange_rate_history_pk, pk, history_data)
 
         pk += 1
 

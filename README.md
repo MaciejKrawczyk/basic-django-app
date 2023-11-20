@@ -67,4 +67,5 @@ python manage.py runserver
 1. The instruction for the task says to load data from external database. It doesn't state if it should be done once or a scheduler should be set up. I set it up to load data only once, but the currency and exchange rates are changing very frequently, the data should be updated regularly.
 2. In terms of libraries, I used the yfinance because it was recommended in the task. Also used django rest framework as it abstract away some of the work and is widely used and recommended. 
 3. To display the view historical data button, in the admin panel you need to enter to exchange rates, then click on ExchangeRate object. 
-4. In first version I fetched historical data from an api every time the view historical data button in admin panel. But now I created a separate table in local database to speed up displaying the data and reduce the amount of requests.
+4. Historical data is fetched with period of 1 month and fetched currencies are EURUSD, USDJPY, PLNUSD. It is possible to change these values in currency -> utils -> create_fixture.py file.
+5. In first version I fetched historical data from an api every time the view historical data button in admin panel. But now I created a separate table in local database to speed up displaying the data and reduce the amount of requests.

@@ -11,3 +11,7 @@ def create_json_file(fixture_data, path):
     with open(file_path, 'w') as f:
         json.dump(fixture_data, f)
         print("File created")
+
+
+def split_currency_pair(currency_pair):
+    return currency_pair[:3], currency_pair[3:]
