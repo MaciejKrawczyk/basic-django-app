@@ -65,5 +65,5 @@ python manage.py runserver
 1. The task instructions specify loading data from an external database but do not clarify whether this should be a one-time action or if a scheduler should be set up. I initially configured it to load data just once. However, considering that currency and exchange rates frequently change, it would be more appropriate to regularly update the data.
 2. Regarding the choice of libraries, I utilized 'yfinance' as recommended in the task. Additionally, I used the Django REST framework, which simplifies some aspects of the work and is widely recommended.
 3. To display the 'See historical rates' button, navigate to the exchange rates section in the admin panel and then click on the ExchangeRate object.
-4. The historical data is fetched with a default period of one month, and the currencies fetched are EURUSD, USDJPY, and PLNUSD. These values can be altered in the currency -> config.py file.
+4. The historical data is fetched with a default period of one month, and the currencies fetched are EURUSD, USDJPY, and PLNUSD. These values can be altered in the currency -> config.py file. When changed, you have to run the loaddata command again.
 5. To enhance performance and reduce the number of requests, I have created a separate table in the local database for storing this data.
